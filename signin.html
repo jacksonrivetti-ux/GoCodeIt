@@ -7,43 +7,44 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="index.html" class="nav-logo">Go<span>Code</span>It</a>
+    <a href="index.html" class="nav-logo">
+      <span class="go">Go</span><span class="code">Code</span><span class="it">It</span>
+    </a>
     <div class="nav-links">
       <a href="join.html" class="btn btn-ghost">Join</a>
       <a href="signin.html" class="btn btn-primary">Sign In</a>
     </div>
   </nav>
 
-  <!-- SIGN IN CARD -->
   <div class="auth-page">
     <div class="auth-card">
-      <div class="auth-logo">Go<span>Code</span>It</div>
+      <div class="auth-logo">
+        <span class="go">Go</span><span class="code">Code</span><span class="it">It</span>
+      </div>
       <div class="auth-sub">// welcome back, coder</div>
 
       <div class="alert alert-error" id="error-msg"></div>
 
       <div class="form-group">
-        <label for="email">EMAIL ADDRESS</label>
+        <label for="email">Email Address</label>
         <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
       </div>
-
       <div class="form-group">
-        <label for="password">PASSWORD</label>
+        <label for="password">Password</label>
         <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
       </div>
 
       <a href="#" class="forgot-link">Forgot your password?</a>
 
-      <button class="btn btn-primary btn-full btn-lg" id="signin-btn">
-        Sign In →
-      </button>
+      <button class="btn btn-primary btn-full btn-lg" id="signin-btn">Sign In →</button>
 
       <div class="auth-footer-text">
-        Don't have an account?
-        <a href="join.html">Sign Up Here</a>
+        Don't have an account? <a href="join.html">Sign Up Here</a>
       </div>
     </div>
   </div>
@@ -52,41 +53,19 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       GCI.redirectIfLoggedIn('dashboard.html');
-
       const btn = document.getElementById('signin-btn');
       const errEl = document.getElementById('error-msg');
 
-      function showError(msg) {
-        errEl.textContent = msg;
-        errEl.classList.add('show');
-      }
-
-      function clearError() {
-        errEl.classList.remove('show');
-      }
-
       btn.addEventListener('click', () => {
-        clearError();
+        errEl.classList.remove('show');
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
-
-        if (!email || !password) {
-          showError('Please fill in all fields.');
-          return;
-        }
-
-        const result = GCI.signIn({ email, password });
-        if (result.ok) {
-          window.location.href = 'dashboard.html';
-        } else {
-          showError(result.error);
-        }
+        if (!email || !password) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('show'); return; }
+        const r = GCI.signIn({ email, password });
+        if (r.ok) { window.location.href = 'dashboard.html'; }
+        else { errEl.textContent = r.error; errEl.classList.add('show'); }
       });
-
-      // Enter key support
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') btn.click();
-      });
+      document.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
     });
   </script>
 </body>
