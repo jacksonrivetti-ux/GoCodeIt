@@ -7,20 +7,25 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="index.html" class="nav-logo">Go<span>Code</span>It</a>
+    <a href="index.html" class="nav-logo">
+      <span class="go">Go</span><span class="code">Code</span><span class="it">It</span>
+    </a>
     <div class="nav-links">
       <a href="join.html" class="btn btn-ghost">Join</a>
       <a href="signin.html" class="btn btn-primary">Sign In</a>
     </div>
   </nav>
 
-  <!-- JOIN CARD -->
   <div class="auth-page">
-    <div class="auth-card" style="max-width:500px;">
-      <div class="auth-logo">Go<span>Code</span>It</div>
+    <div class="auth-card" style="max-width:500px">
+      <div class="auth-logo">
+        <span class="go">Go</span><span class="code">Code</span><span class="it">It</span>
+      </div>
       <div class="auth-sub">// create your account — it's free</div>
 
       <div class="alert alert-error" id="error-msg"></div>
@@ -28,42 +33,41 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label for="firstName">FIRST NAME</label>
+          <label for="firstName">First Name</label>
           <input type="text" id="firstName" placeholder="Alex" autocomplete="given-name">
         </div>
         <div class="form-group">
-          <label for="lastName">LAST NAME</label>
+          <label for="lastName">Last Name</label>
           <input type="text" id="lastName" placeholder="Rivera" autocomplete="family-name">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="email">EMAIL ADDRESS</label>
+        <label for="email">Email Address</label>
         <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
       </div>
 
       <div class="form-group">
-        <label for="age">YOUR AGE</label>
-        <input type="number" id="age" placeholder="16" min="0" style="max-width:120px;">
+        <label for="age">Your Age</label>
+        <input type="number" id="age" placeholder="16" min="0" style="max-width:130px">
       </div>
 
       <div class="form-group">
-        <label for="password">PASSWORD</label>
+        <label for="password">Password</label>
         <input type="password" id="password" placeholder="At least 6 characters" autocomplete="new-password">
       </div>
 
       <div class="form-group">
-        <label for="confirm">CONFIRM PASSWORD</label>
+        <label for="confirm">Confirm Password</label>
         <input type="password" id="confirm" placeholder="Repeat password" autocomplete="new-password">
       </div>
 
-      <button class="btn btn-primary btn-full btn-lg" id="join-btn" style="margin-top:0.5rem;">
+      <button class="btn btn-primary btn-full btn-lg" id="join-btn" style="margin-top:0.5rem">
         Create My Account →
       </button>
 
       <div class="auth-footer-text">
-        Already have an account?
-        <a href="signin.html">Sign In</a>
+        Already have an account? <a href="signin.html">Sign In</a>
       </div>
     </div>
   </div>
@@ -72,24 +76,12 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       GCI.redirectIfLoggedIn('dashboard.html');
-
       const btn = document.getElementById('join-btn');
       const errEl = document.getElementById('error-msg');
       const sucEl = document.getElementById('success-msg');
 
-      function showError(msg) {
-        sucEl.classList.remove('show');
-        errEl.textContent = msg;
-        errEl.classList.add('show');
-      }
-
-      function clearMessages() {
-        errEl.classList.remove('show');
-        sucEl.classList.remove('show');
-      }
-
       btn.addEventListener('click', () => {
-        clearMessages();
+        errEl.classList.remove('show'); sucEl.classList.remove('show');
         const firstName = document.getElementById('firstName').value.trim();
         const lastName  = document.getElementById('lastName').value.trim();
         const email     = document.getElementById('email').value.trim();
@@ -98,34 +90,24 @@
         const confirm   = document.getElementById('confirm').value;
 
         if (!firstName || !lastName || !email || !age || !password || !confirm) {
-          showError('Please fill in all fields.');
-          return;
+          errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('show'); return;
         }
-
         if (password !== confirm) {
-          showError('Passwords do not match.');
-          return;
+          errEl.textContent = 'Passwords do not match.'; errEl.classList.add('show'); return;
         }
-
         const ageNum = parseInt(age, 10);
         if (isNaN(ageNum) || ageNum < 0) {
-          showError('Please enter a valid age.');
-          return;
+          errEl.textContent = 'Please enter a valid age.'; errEl.classList.add('show'); return;
         }
-
-        const result = GCI.signUp({ firstName, lastName, email, password, age: ageNum });
-        if (result.ok) {
-          sucEl.textContent = 'Account created! Redirecting…';
-          sucEl.classList.add('show');
+        const r = GCI.signUp({ firstName, lastName, email, password, age: ageNum });
+        if (r.ok) {
+          sucEl.textContent = 'Account created! Redirecting…'; sucEl.classList.add('show');
           setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
         } else {
-          showError(result.error);
+          errEl.textContent = r.error; errEl.classList.add('show');
         }
       });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') btn.click();
-      });
+      document.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
     });
   </script>
 </body>
