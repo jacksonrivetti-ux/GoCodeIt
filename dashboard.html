@@ -7,10 +7,14 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="index.html" class="nav-logo">Go<span>Code</span>It</a>
+    <a href="index.html" class="nav-logo">
+      <span class="go">Go</span><span class="code">Code</span><span class="it">It</span>
+    </a>
     <div class="nav-links">
       <a href="profile.html" class="btn btn-ghost">Profile</a>
       <button id="signout-btn" class="btn btn-outline">Sign Out</button>
@@ -18,121 +22,76 @@
   </nav>
 
   <div class="dash-layout">
-
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-      <div class="sidebar-label">navigate</div>
-      <a class="sidebar-link active" href="dashboard.html">
-        <span class="icon">⚡</span> Dashboard
-      </a>
-      <a class="sidebar-link" href="profile.html">
-        <span class="icon">👤</span> My Profile
-      </a>
-
-      <div class="sidebar-label">community</div>
-      <a class="sidebar-link" href="#">
-        <span class="icon">🎮</span> Projects
-      </a>
-      <a class="sidebar-link" href="#">
-        <span class="icon">🏆</span> Hackathons
-      </a>
-      <a class="sidebar-link" href="#">
-        <span class="icon">📊</span> Leaderboard
-      </a>
-
-      <div class="sidebar-label">account</div>
-      <a class="sidebar-link" href="#" id="signout-btn-side">
-        <span class="icon">🚪</span> Sign Out
-      </a>
+      <div class="sb-sec">navigate</div>
+      <a class="sb-link active" href="dashboard.html"><span class="sb-icon">⚡</span> Dashboard</a>
+      <a class="sb-link" href="profile.html"><span class="sb-icon">👤</span> My Profile</a>
+      <div class="sb-sec">community</div>
+      <a class="sb-link" href="#"><span class="sb-icon">🎮</span> Projects</a>
+      <a class="sb-link" href="#"><span class="sb-icon">🏆</span> Hackathons</a>
+      <a class="sb-link" href="#"><span class="sb-icon">📊</span> Leaderboard</a>
+      <div class="sb-sec">account</div>
+      <a class="sb-link" href="#" id="sb-signout"><span class="sb-icon">🚪</span> Sign Out</a>
     </aside>
 
-    <!-- MAIN -->
     <main class="dash-main">
+      <div class="dash-greeting">WELCOME BACK, <span class="dash-name" id="dash-name">Coder</span></div>
+      <div class="dash-sub">// ready to build something?</div>
 
-      <!-- Greeting -->
-      <div class="dash-header">
-        <div class="dash-greeting">
-          WELCOME BACK, <span class="name" id="dash-name">Coder</span>
-        </div>
-        <div class="dash-tagline">// ready to build something?</div>
+      <div class="stats-row">
+        <div class="stat-tile"><div class="n">0</div><div class="l">// projects</div></div>
+        <div class="stat-tile"><div class="n">0</div><div class="l">// hackathons</div></div>
+        <div class="stat-tile"><div class="n">0</div><div class="l">// likes received</div></div>
+        <div class="stat-tile"><div class="n" style="color:var(--cyan)">#—</div><div class="l">// leaderboard</div></div>
       </div>
 
-      <!-- Stats -->
-      <div class="dash-stats">
-        <div class="stat-card">
-          <div class="stat-num">0</div>
-          <div class="stat-label">// projects</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">0</div>
-          <div class="stat-label">// hackathons</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">0</div>
-          <div class="stat-label">// likes received</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" style="color:var(--neon2)">#—</div>
-          <div class="stat-label">// leaderboard rank</div>
-        </div>
-      </div>
-
-      <!-- Setup Card -->
       <div class="setup-card">
-        <div class="setup-header">
-          <div class="setup-title">⚙️ SETUP YOUR ACCOUNT</div>
-          <div class="setup-progress" id="progress-text">0% complete</div>
+        <div class="setup-top">
+          <div class="setup-title">⚙️ Setup Your Account</div>
+          <div class="setup-pct" id="setup-pct">0% complete</div>
         </div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progress-bar" style="width:0%"></div>
         </div>
-        <div class="setup-items" id="setup-items">
-          <!-- Rendered by dashboard.js -->
-        </div>
+        <div class="setup-items" id="setup-items"></div>
       </div>
 
-      <!-- Community Feed placeholder -->
-      <div style="margin-top: 2rem;">
-        <div class="section-label">// community_feed</div>
-        <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px; margin-bottom:1.2rem;">
-          Latest From the Community
-        </h3>
-        <div class="cards-grid">
-          <div class="card">
-            <div class="card-thumb">🌊</div>
-            <div class="card-body">
-              <div class="card-title">WaveRunner</div>
-              <div class="card-meta">by @surfer_dev · ❤️ 54</div>
-              <div class="card-tags"><span class="tag">endless runner</span></div>
-            </div>
+      <div class="ltag" style="margin-top:2rem">community_feed</div>
+      <h3 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.8px;margin-bottom:1.2rem">Latest From the Community</h3>
+      <div class="cards-grid">
+        <div class="project-card">
+          <div class="card-thumb">🌊</div>
+          <div class="card-body">
+            <div class="card-title">WaveRunner</div>
+            <div class="card-meta">by @surfer_dev · ❤️ 54</div>
+            <div class="card-tags"><span class="tag">endless runner</span></div>
           </div>
-          <div class="card">
-            <div class="card-thumb">🤖</div>
-            <div class="card-body">
-              <div class="card-title">BotWars</div>
-              <div class="card-meta">by @robo99 · ❤️ 87</div>
-              <div class="card-tags"><span class="tag">ai</span><span class="tag">strategy</span></div>
-            </div>
+        </div>
+        <div class="project-card">
+          <div class="card-thumb">🤖</div>
+          <div class="card-body">
+            <div class="card-title">BotWars</div>
+            <div class="card-meta">by @robo99 · ❤️ 87</div>
+            <div class="card-tags"><span class="tag">ai</span><span class="tag">strategy</span></div>
           </div>
-          <div class="card">
-            <div class="card-thumb">🌿</div>
-            <div class="card-body">
-              <div class="card-title">GrowthSim</div>
-              <div class="card-meta">by @plantkid · ❤️ 31</div>
-              <div class="card-tags"><span class="tag">simulation</span></div>
-            </div>
+        </div>
+        <div class="project-card">
+          <div class="card-thumb">🌿</div>
+          <div class="card-body">
+            <div class="card-title">GrowthSim</div>
+            <div class="card-meta">by @plantkid · ❤️ 31</div>
+            <div class="card-tags"><span class="tag">simulation</span></div>
           </div>
         </div>
       </div>
-
     </main>
   </div>
 
   <script src="scripts/auth.js"></script>
   <script src="scripts/dashboard.js"></script>
   <script>
-    // Sidebar signout
-    document.getElementById('signout-btn-side').addEventListener('click', () => GCI.signOut());
+    document.getElementById('signout-btn').addEventListener('click', () => GCI.signOut());
+    document.getElementById('sb-signout').addEventListener('click', () => GCI.signOut());
   </script>
 </body>
 </html>
