@@ -1,84 +1,61 @@
-// ── GoCodeIt Profile ──────────────────────────────────────────
-
 document.addEventListener('DOMContentLoaded', () => {
-
   if (!GCI.requireAuth()) return;
 
-  function loadProfile() {
-    const user = GCI.getCurrentUser();
+  function load() {
+    const u = GCI.getCurrentUser();
 
-    // Avatar initials
+    // Avatar
     const av = document.getElementById('avatar-initials');
-    if (av) av.textContent = (user.firstName[0] + user.lastName[0]).toUpperCase();
+    if (av) av.textContent = (u.firstName[0] + u.lastName[0]).toUpperCase();
 
-    // Name & email in sidebar
-    const pName = document.getElementById('profile-name');
-    const pEmail = document.getElementById('profile-email');
-    if (pName) pName.textContent = user.firstName + ' ' + user.lastName;
-    if (pEmail) pEmail.textContent = user.email;
+    // Sidebar
+    const pn = document.getElementById('p-name');
+    const pe = document.getElementById('p-email');
+    if (pn) pn.textContent = u.firstName + ' ' + u.lastName;
+    if (pe) pe.textContent = u.email;
 
-    // Info rows
-    const fields = [
-      { id: 'info-firstname', key: 'firstName' },
-      { id: 'info-lastname', key: 'lastName' },
-      { id: 'info-email', key: 'email' },
-      { id: 'info-age', key: 'age' },
-      { id: 'info-phone', key: 'phone' },
-      { id: 'info-github', key: 'github' },
-      { id: 'info-location', key: 'location' },
-      { id: 'info-projecttype', key: 'projectType' },
-    ];
-
-    fields.forEach(({ id, key }) => {
-      const el = document.getElementById(id);
+    // Rows
+    [
+      ['firstName','firstName'],['lastName','lastName'],['email','email'],
+      ['age','age'],['phone','phone'],['github','github'],
+      ['location','location'],['projectType','projectType'],
+    ].forEach(([id, key]) => {
+      const el = document.getElementById('info-' + id);
       if (!el) return;
-      const val = user[key];
-      el.textContent = val && val.toString().trim() ? val : '—';
-      el.className = 'info-value' + ((!val || val.toString().trim() === '') ? ' empty' : '');
+      const v = u[key];
+      const has = v && v.toString().trim() !== '';
+      el.textContent = has ? v : '—';
+      el.className   = 'info-val' + (has ? '' : ' empty');
     });
   }
 
-  // ── Inline edit ────────────────────────────────────────────────
-  window.startEdit = function(field) {
-    const user = GCI.getCurrentUser();
-    const valEl = document.getElementById('info-' + field);
+  window.startEdit = field => {
+    const u    = GCI.getCurrentUser();
+    const valEl  = document.getElementById('info-' + field);
     const editEl = document.getElementById('edit-' + field);
-    const inputEl = document.getElementById('editinput-' + field);
-
-    if (!editEl || !inputEl) return;
-
-    // Toggle: if already open, close
+    const inp    = document.getElementById('editinput-' + field);
+    if (!editEl || !inp) return;
     if (editEl.classList.contains('open')) {
       editEl.classList.remove('open');
-      valEl.style.display = '';
+      if (valEl) valEl.style.display = '';
       return;
     }
-
-    inputEl.value = user[field] || '';
+    inp.value = u[field] || '';
     editEl.classList.add('open');
-    valEl.style.display = 'none';
-    inputEl.focus();
+    if (valEl) valEl.style.display = 'none';
+    inp.focus();
   };
 
-  window.saveEdit = function(field) {
-    const inputEl = document.getElementById('editinput-' + field);
+  window.saveEdit = field => {
+    const inp    = document.getElementById('editinput-' + field);
     const editEl = document.getElementById('edit-' + field);
-    const valEl = document.getElementById('info-' + field);
-
-    const val = inputEl.value.trim();
-    const user = GCI.getCurrentUser();
-    GCI.updateUser(user.email, { [field]: val });
-
-    editEl.classList.remove('open');
-    valEl.style.display = '';
-    loadProfile();
+    const valEl  = document.getElementById('info-' + field);
+    const val    = inp?.value.trim();
+    GCI.updateUser(GCI.getCurrentUser().email, { [field]: val });
+    editEl?.classList.remove('open');
+    if (valEl) valEl.style.display = '';
+    load();
   };
 
-  // ── Sign out ───────────────────────────────────────────────────
-  const signOutBtn = document.getElementById('signout-btn');
-  if (signOutBtn) signOutBtn.addEventListener('click', () => GCI.signOut());
-
-  // ── Init ───────────────────────────────────────────────────────
-  loadProfile();
-
+  load();
 });
