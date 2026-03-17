@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — GoCodeIt</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Go<span>Code</span>It</a>
+    <div class="nav-links">
+      <a href="dashboard.html" class="btn btn-ghost">Dashboard</a>
+      <button id="signout-btn" class="btn btn-outline">Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="dash-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-label">navigate</div>
+      <a class="sidebar-link" href="dashboard.html">
+        <span class="icon">⚡</span> Dashboard
+      </a>
+      <a class="sidebar-link active" href="profile.html">
+        <span class="icon">👤</span> My Profile
+      </a>
+
+      <div class="sidebar-label">community</div>
+      <a class="sidebar-link" href="#">
+        <span class="icon">🎮</span> Projects
+      </a>
+      <a class="sidebar-link" href="#">
+        <span class="icon">🏆</span> Hackathons
+      </a>
+      <a class="sidebar-link" href="#">
+        <span class="icon">📊</span> Leaderboard
+      </a>
+
+      <div class="sidebar-label">account</div>
+      <a class="sidebar-link" href="#" onclick="GCI.signOut()">
+        <span class="icon">🚪</span> Sign Out
+      </a>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="dash-main">
+
+      <div class="dash-header">
+        <div class="dash-greeting">MY <span class="name">PROFILE</span></div>
+        <div class="dash-tagline">// manage your info</div>
+      </div>
+
+      <div class="profile-grid">
+
+        <!-- Sidebar Card -->
+        <div class="profile-sidebar-card">
+          <div class="avatar" id="avatar-initials" title="Click to change avatar">??</div>
+          <div class="avatar-hint">click to update avatar</div>
+          <div class="profile-name" id="profile-name">Loading…</div>
+          <div class="profile-email" id="profile-email">loading@email.com</div>
+          <div style="margin-top:1.5rem;">
+            <a href="dashboard.html" class="btn btn-outline btn-full" style="font-size:0.8rem;">
+              ← Back to Dashboard
+            </a>
+          </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div style="display:flex; flex-direction:column; gap:1.2rem;">
+
+          <!-- Personal Info -->
+          <div class="info-card">
+            <div class="info-card-title">👤 Personal Info</div>
+
+            <!-- First Name -->
+            <div class="info-row">
+              <span class="info-label">FIRST NAME</span>
+              <span class="info-value" id="info-firstname">—</span>
+              <div class="inline-edit" id="edit-firstName">
+                <input type="text" id="editinput-firstName" placeholder="First name">
+                <button class="save-btn" onclick="saveEdit('firstName')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('firstName')">Edit</button>
+            </div>
+
+            <!-- Last Name -->
+            <div class="info-row">
+              <span class="info-label">LAST NAME</span>
+              <span class="info-value" id="info-lastname">—</span>
+              <div class="inline-edit" id="edit-lastName">
+                <input type="text" id="editinput-lastName" placeholder="Last name">
+                <button class="save-btn" onclick="saveEdit('lastName')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('lastName')">Edit</button>
+            </div>
+
+            <!-- Email -->
+            <div class="info-row">
+              <span class="info-label">EMAIL</span>
+              <span class="info-value" id="info-email">—</span>
+              <div class="inline-edit" id="edit-email">
+                <input type="email" id="editinput-email" placeholder="Email">
+                <button class="save-btn" onclick="saveEdit('email')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('email')">Edit</button>
+            </div>
+
+            <!-- Age -->
+            <div class="info-row">
+              <span class="info-label">AGE</span>
+              <span class="info-value" id="info-age">—</span>
+              <div class="inline-edit" id="edit-age">
+                <input type="number" id="editinput-age" placeholder="Age" min="0">
+                <button class="save-btn" onclick="saveEdit('age')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('age')">Edit</button>
+            </div>
+          </div>
+
+          <!-- Contact & Social -->
+          <div class="info-card">
+            <div class="info-card-title">📡 Contact & Social</div>
+
+            <!-- Phone -->
+            <div class="info-row">
+              <span class="info-label">PHONE</span>
+              <span class="info-value" id="info-phone">—</span>
+              <div class="inline-edit" id="edit-phone">
+                <input type="tel" id="editinput-phone" placeholder="+1 (555) 000-0000">
+                <button class="save-btn" onclick="saveEdit('phone')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('phone')">Edit</button>
+            </div>
+
+            <!-- GitHub -->
+            <div class="info-row">
+              <span class="info-label">GITHUB</span>
+              <span class="info-value" id="info-github">—</span>
+              <div class="inline-edit" id="edit-github">
+                <input type="text" id="editinput-github" placeholder="your-username">
+                <button class="save-btn" onclick="saveEdit('github')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('github')">Edit</button>
+            </div>
+
+            <!-- Location -->
+            <div class="info-row">
+              <span class="info-label">LOCATION</span>
+              <span class="info-value" id="info-location">—</span>
+              <div class="inline-edit" id="edit-location">
+                <input type="text" id="editinput-location" placeholder="City, Country">
+                <button class="save-btn" onclick="saveEdit('location')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('location')">Edit</button>
+            </div>
+          </div>
+
+          <!-- Builder Info -->
+          <div class="info-card">
+            <div class="info-card-title">🎮 Builder Info</div>
+
+            <!-- Project Type -->
+            <div class="info-row">
+              <span class="info-label">BUILDS</span>
+              <span class="info-value" id="info-projecttype">—</span>
+              <div class="inline-edit" id="edit-projectType">
+                <input type="text" id="editinput-projectType" placeholder="Games, Web Apps, etc.">
+                <button class="save-btn" onclick="saveEdit('projectType')">Save</button>
+              </div>
+              <button class="edit-btn" onclick="startEdit('projectType')">Edit</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/profile.js"></script>
+</body>
+</html>
